@@ -2,14 +2,10 @@ const mongoose = require('mongoose');
 
 const connectDB = async () => {
     try {
-        let uri = process.env.MONGO_URI;
+        const uri = process.env.MONGO_URI;
 
-        // Magia: Si no pusiste clave, creamos temporalmente un engine completo de Mongo en Memoria
         if (!uri) {
-            console.log("Generando Base de Datos local en memoria (Zero-Config Demo)...");
-            const { MongoMemoryServer } = require('mongodb-memory-server');
-            const mongoServer = await MongoMemoryServer.create();
-            uri = mongoServer.getUri();
+            throw new Error("CRITICAL: MONGO_URI environment variable is missing in Render settings. Please add it to your Environment Variables.");
         }
 
         await mongoose.connect(uri);

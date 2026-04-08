@@ -114,14 +114,7 @@ const { ingestData } = require('./ingest');
 
 const startServer = async () => {
     await connectDB();
-
-    // Si estamos en modo de demostración local sin clave (Memory DB), auto-ingestamos los datos.
-    if (!process.env.MONGO_URI) {
-        console.log("Detectado entorno Demo: Ejecutando ingesta histórica en Time Series (En Memoria)...");
-        await ingestData();
-    }
-
-    app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
+    app.listen(PORT, '0.0.0.0', () => console.log(`Server running on port ${PORT}`));
 };
 
 startServer();
